@@ -26,6 +26,7 @@ $$\rho c \frac{\partial T}{\partial t} = \frac{\partial}{\partial z}\left(k \fra
 
 ![Surface Heating](outputs/surface_heating_final_temp.png)
 
+![Animation](outputs/hyperthermia_simulation.gif)
 ---
 
 ### Sensitivity Analysis
