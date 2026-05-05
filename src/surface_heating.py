@@ -119,6 +119,7 @@ line, = ax.plot(z_mm, T_history[0], color='darkred', lw=2, label="Tissue Temp")
 v_line = ax.axvline(0, color='purple', linestyle=':', label="Current Treatable Depth")
 # Create an empty list to track our shading collection
 fill_collection = [ax.fill_between(z_mm, threshold, T_history[0], where=(T_history[0] >= threshold), color='green', alpha=0.25)]
+time_text = ax.text(0.02, 0.95, '', transform=ax.transAxes, fontsize=9, va='top')
 
 
 ax.set_xlim(0, 40)
@@ -155,12 +156,13 @@ def update(frame):
     current_time_mins = (frame * 200 * dt) / 60
     ax.set_title(f"Hyperthermia Evolution: {current_time_mins:.1f} mins\n"
                  f"Current Depth: {current_depth:.2f} mm")
+    time_text.set_text(f"Frame: {frame} / {len(T_history)-1}, Time: {current_time_mins:.1f} min")
     
-    return line, v_line, fill_collection[0]
+    return line, v_line, fill_collection[0], time_text
 
 ani = animation.FuncAnimation(fig, update, frames=len(T_history), 
                               interval=50, blit=False, repeat=False)
 
 plt.tight_layout()
-plt.savefig("temperature_evolution.gif", dpi=300)
+ani.save('hyperthermia_simulation.gif', writer='pillow', fps=20)
 plt.show()
